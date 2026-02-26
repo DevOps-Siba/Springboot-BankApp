@@ -1,33 +1,6 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/bankapp-automate-key
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/6.34.0/linux_amd64/terraform-provider-aws_v6.34.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/6.34.0/linux_amd64/LICENSE.txt
+terraform/terraform.tfstate.backup
