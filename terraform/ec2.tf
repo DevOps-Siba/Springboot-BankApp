@@ -16,22 +16,7 @@ data "aws_ami" "os_image" {
   }
 }
 
-############################################
-# 2️⃣ Get Default VPC
-############################################
-data "aws_vpc" "default" {
-  default = true
-}
 
-############################################
-# 3️⃣ Get Default Subnets
-############################################
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-}
 
 ############################################
 # 4️⃣ Key Pair
@@ -41,13 +26,18 @@ resource "aws_key_pair" "deployer" {
   public_key = file("bankapp-automate-key.pub")
 }
 
+resource "aws_default_vpc" "default" {
+
+}
+
+
 ############################################
 # 5️⃣ Security Group
 ############################################
 resource "aws_security_group" "allow_user_to_connect" {
-  name        = "bankapp-security"
+  name        = "allow TLS"
   description = "Allow SSH, HTTP and HTTPS"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = aws_default_vpc.default.id
 
   ingress {
     description = "Allow SSH"
@@ -93,15 +83,7 @@ resource "aws_instance" "testinstance" {
   ami           = data.aws_ami.os_image.id
   instance_type = var.instance_type
   key_name      = aws_key_pair.deployer.key_name
-
-  subnet_id = data.aws_subnets.default.ids[0]
-
-  associate_public_ip_address = true   # 👈 ADD THIS
-
-  vpc_security_group_ids = [
-    aws_security_group.allow_user_to_connect.id
-  ]
-
+  
   tags = {
     Name = "Bankapp-Automate-Server"
   }
